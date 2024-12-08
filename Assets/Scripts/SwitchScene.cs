@@ -1,8 +1,15 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 public class SwitchScene : MonoBehaviour
 {
+    public string Username = "";
+    public string Password = "";
+
+    public TMP_InputField[] myInputs;
+    public TMP_Text IsLoggedIn;
+
     public void switchScenes(string scene)
     {
         SceneManager.LoadScene(scene);
@@ -54,6 +61,25 @@ public class SwitchScene : MonoBehaviour
         {
             return;
         }
+    }
+    public void Login()
+    {
+        
+        Username = myInputs[0].text;
+        Password = myInputs[1].text;
+        if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+        {
+            IsLoggedIn.text = $"Welcome, {Username}";
+        }
+        else 
+        {
+            IsLoggedIn.text = "Log In Failed";
+        }
+            
+    }
+    public void CreateAccount()
+    {
+
     }
 
     //GameObject loaded
