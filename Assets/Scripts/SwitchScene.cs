@@ -1,11 +1,20 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Newtonsoft.Json;
+using System.Net.Http;
+using System.Net;
+using System;
+using UnityEngine.Experimental.Rendering;
+using UnityEditor.Experimental.GraphView;
+using UnityEditor;
 
 public class SwitchScene : MonoBehaviour
 {
     public string Username = "";
     public string Password = "";
+    public string Password2 = "";
+    public string Email = "";
 
     public TMP_InputField[] myInputs;
     public TMP_Text IsLoggedIn;
@@ -62,23 +71,89 @@ public class SwitchScene : MonoBehaviour
             return;
         }
     }
-    public void Login()
+    public async void Login()
     {
         
         Username = myInputs[0].text;
         Password = myInputs[1].text;
-        if (!string.IsNullOrEmpty(Username) && !string.IsNullOrEmpty(Password))
+        if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(Password))
         {
-            IsLoggedIn.text = $"Welcome, {Username}";
+            IsLoggedIn.text = "Fields cannot be empty!";
         }
-        else 
+        else
         {
-            IsLoggedIn.text = "Log In Failed";
+            Classes.Player player = new Classes.Player
+            {
+                UserName = this.Username,
+                Password = this.Password,
+                Email = "12@12.com",
+                NumberOfWins = 0,
+                DateJoined = DateTime.Now
+            };
+            HttpClient client = new HttpClient();
+            var data = JsonConvert.SerializeObject(player);
+            var response = await client.PostAsync(new Uri(Classes.APILinks.APIAddress + "player/login"), new StringContent(data, System.Text.Encoding.UTF8, "application/json"));
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                IsLoggedIn.text = $"Welcome, {Username}";
+                string result = response.Content.ReadAsStringAsync().Result;
+                result = result.Replace("\'", "").Replace("\\", "").Replace("\"", "").Trim(); //Return string has quotes inside the string
+                Classes.APILinks.PlayerID = new Guid(result); //Entire app knows the PlayerID that logs in.
+                Classes.APILinks.PlayerUserName = player.UserName;
+                EditorUtility.DisplayDialog("Logged In!", $"Welcome, {Username}", "OK");
+            }
+            else
+                IsLoggedIn.text = response.StatusCode.ToString();
         }
             
     }
-    public void CreateAccount()
+    public async void CreateAccount()
     {
+        Username = myInputs[0].text;
+        Password = myInputs[1].text;
+        Password2 = myInputs[2].text;
+        Email = myInputs[3].text;
+        if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(Password2) && string.IsNullOrEmpty(Email))
+        {
+            IsLoggedIn.text = "Fields cannot be empty!";
+        }
+        else if (Password != Password2)
+        {
+            IsLoggedIn.text = "Password do not match!";
+            return;
+        }
+        else if(!Email.Contains("@") || Email.LastIndexOf(".") < Email.LastIndexOf("@"))
+        {
+            IsLoggedIn.text = "Invalid Email!";
+            return;
+        }
+        else
+        {
+            //Call API to see if login is valid
+            Classes.Player player = new Classes.Player
+            {
+                UserName = this.Username,
+                Password = this.Password,
+                Email = this.Email,
+                NumberOfWins = 0,
+                DateJoined = DateTime.Now
+            };
+            HttpClient client = new HttpClient();
+            var data = JsonConvert.SerializeObject(player);
+            var response = await client.PostAsync(new Uri(Classes.APILinks.APIAddress + "player/false"), new StringContent(data, System.Text.Encoding.UTF8, "application/json"));
+            if (response.StatusCode == HttpStatusCode.OK)
+            {
+                IsLoggedIn.text = $"Welcome, {Username}";
+                string result = response.Content.ReadAsStringAsync().Result;
+                result = result.Replace("\'", "").Replace("\\", "").Replace("\"", "").Trim(); //Return string has quotes inside the string
+                Classes.APILinks.PlayerID = new Guid(result); //Entire app knows the PlayerID that logs in.
+                Classes.APILinks.PlayerUserName = player.UserName;
+                EditorUtility.DisplayDialog("Account Created!", $"Welcome, {Username}", "OK");
+            }
+
+            else
+                IsLoggedIn.text = response.StatusCode.ToString();
+        }
 
     }
 
