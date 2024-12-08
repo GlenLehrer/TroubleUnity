@@ -293,7 +293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 990, y: 485}
+  m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &64466185
 MonoBehaviour:
@@ -431,7 +431,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 91309244}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -517,7 +517,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 990, y: 485}
+  m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &196721121
 MonoBehaviour:
@@ -779,7 +779,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 279154729}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1083,7 +1083,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 388886119}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1170,7 +1170,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 990, y: 485}
+  m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &417080261
 MonoBehaviour:
@@ -1384,7 +1384,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 990, y: 485}
+  m_SizeDelta: {x: 800, y: 500}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &457721404
 MonoBehaviour:
@@ -1573,8 +1573,8 @@ GameObject:
   - component: {fileID: 526827627}
   - component: {fileID: 526827626}
   m_Layer: 5
-  m_Name: Canvas - Create Account
-  m_TagString: Untagged
+  m_Name: Create Account
+  m_TagString: CreateAccount
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1651,17 +1651,17 @@ RectTransform:
   m_GameObject: {fileID: 526827625}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 457721403}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1112644723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &544096178
 GameObject:
   m_ObjectHideFlags: 0
@@ -2293,8 +2293,8 @@ GameObject:
   - component: {fileID: 968705089}
   - component: {fileID: 968705088}
   m_Layer: 5
-  m_Name: Canvas - Main Menu
-  m_TagString: Untagged
+  m_Name: Main Menu
+  m_TagString: MainMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2375,7 +2375,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 417080260}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1112644723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -2480,7 +2480,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1075189190}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2664,6 +2664,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1077408131}
   m_CullTransparentMesh: 1
+--- !u!1 &1112644722
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1112644723}
+  m_Layer: 0
+  m_Name: CanvasParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1112644723
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1112644722}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 968705091}
+  - {fileID: 526827629}
+  - {fileID: 1217492543}
+  - {fileID: 1980608744}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1217492539
 GameObject:
   m_ObjectHideFlags: 0
@@ -2677,8 +2712,8 @@ GameObject:
   - component: {fileID: 1217492541}
   - component: {fileID: 1217492540}
   m_Layer: 5
-  m_Name: Canvas - Login
-  m_TagString: Untagged
+  m_Name: Login
+  m_TagString: Login
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2755,17 +2790,17 @@ RectTransform:
   m_GameObject: {fileID: 1217492539}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 64466184}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1112644723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1352517997
 GameObject:
   m_ObjectHideFlags: 0
@@ -3514,7 +3549,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1690657755}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3660,7 +3695,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1699994092}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3794,7 +3829,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1709993651}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4076,7 +4111,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1771698413}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4176,7 +4211,7 @@ Camera:
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
-  m_FOVAxisMode: 0
+  m_FOVAxisMode: 1
   m_Iso: 200
   m_ShutterSpeed: 0.005
   m_Aperture: 16
@@ -4196,8 +4231,8 @@ Camera:
     height: 1
   near clip plane: 0.3
   far clip plane: 1000
-  field of view: 60
-  orthographic: 1
+  field of view: 70.781395
+  orthographic: 0
   orthographic size: 5
   m_Depth: -1
   m_CullingMask:
@@ -4223,7 +4258,7 @@ Transform:
   m_GameObject: {fileID: 1834462686}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 462, y: 225, z: 800}
+  m_LocalPosition: {x: 427, y: 201.29999, z: -1000}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4558,8 +4593,8 @@ GameObject:
   - component: {fileID: 1980608742}
   - component: {fileID: 1980608741}
   m_Layer: 5
-  m_Name: Canvas - Game Room
-  m_TagString: Untagged
+  m_Name: Game Room
+  m_TagString: GameRoom
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4640,7 +4675,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 196721120}
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1112644723}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -4745,7 +4780,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2031691261}
         m_TargetAssemblyTypeName: SwitchScene, Assembly-CSharp
-        m_MethodName: switchScenes
+        m_MethodName: LoadMenu
         m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4800,7 +4835,4 @@ SceneRoots:
   - {fileID: 1834462689}
   - {fileID: 1352518000}
   - {fileID: 544096181}
-  - {fileID: 968705091}
-  - {fileID: 526827629}
-  - {fileID: 1217492543}
-  - {fileID: 1980608744}
+  - {fileID: 1112644723}
