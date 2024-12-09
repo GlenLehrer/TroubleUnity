@@ -1,5 +1,16 @@
+using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using System;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Net;
+using System.Xml.Linq;
 using UnityEngine;
+using static Classes;
+using TMPro;
+using System.Linq;
+using UnityEditor;
+using System.Threading.Tasks;
 
 public class Classes : MonoBehaviour
 {
@@ -121,4 +132,84 @@ public class Classes : MonoBehaviour
 
     }
 
+    public class SignalRClient
+    {
+        //Fix code to work in Unity
+        /*
+        HubConnection _connection;
+        string groupName = "";
+        public TMP_Text IsLoggedIn;
+        private async void ConnectToChannel()
+        {
+
+            _connection = new HubConnectionBuilder()
+                .WithUrl(Classes.APILinks.hubAddress)
+                .Build();
+            await _connection.StartAsync();
+            groupName = "g" + Classes.APILinks.GameID.ToString();
+            await _connection.InvokeAsync("JoinGroup", groupName);
+            _connection.On<string, string>("ReceiveMessage", (s1, s2) => UpdateMessages(s1, s2));
+            _connection.On("UpdateGameBoard", async () => await UpdateGameBoard());
+
+            //_connection.InvokeAsync("UpdateGameBoard", groupName);
+            //_connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, "Message Text");
+        }
+        private async void BtnChat_Clicked(object? sender, EventArgs e)
+        {
+            if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
+            {
+                await SendMessageToChannel(TypeMessage.Text);
+                TypeMessage.Text = "";
+            }
+            else
+            {
+                EditorUtility.DisplayDialog("Error", "Must be Logged in & at a game to Chat!", "Ok");
+            }
+        }
+        private async void UpdateOtherGameBoards() //When I change my GameBoard
+        {
+            await _connection.InvokeAsync("UpdateGameBoard", groupName);
+        }
+        private async void SendMessageToChannel(string message) //When I write a message
+        {
+            string groupName = "g" + Classes.APILinks.GameID.ToString();
+            await _connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, message);
+        }
+
+        private void UpdateMessages(string name, string message) //When I recieve messages
+        {
+            try
+            {
+                //Without running in the main thread, SignalR callback methods (or any method) cannot access the UI on MAUI               
+                //ShowChatMessage.Text += name + " : " + message + " \n";
+
+            }
+            catch (Exception ex)
+            {
+            }
+
+
+
+        }
+        private async Task UpdateGameBoard() //When I receive changes to Game Board from other players.
+        {
+            HttpClient client = new HttpClient();
+            string responseBody = await client.GetStringAsync(new Uri(Classes.APILinks.APIAddress + "game/"));
+            if (responseBody != null)
+            {
+                IsLoggedIn.text = "Game Data Retrieved";
+
+                List<Classes.Game> gameList = JsonConvert.DeserializeObject<List<Classes.Game>>(responseBody).ToList(); ;
+                Classes.Game game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
+
+                await FillLabels();
+                //Without running in the main thread, SignalR callback methods (or any method) cannot access the UI on maui
+                {
+                    GraphicsDrawable.Game = game;
+                    graphicsView.Drawable = new GraphicsDrawable();//Must make new GraphicsDrawable() and assign it the the xaml element graphicsView every time I want to change the Game Board. 
+                });
+            }
+        }
+        */
+    }
 }
