@@ -66,10 +66,14 @@ public class SwitchScene : MonoBehaviour
             Login.gameObject.SetActive(false);
 
         }
-        else
+
+        //Always run this if Statement, regardless of previous if-else statement results.
+        if (IsLoggedIn != null && !string.IsNullOrEmpty(IsLoggedIn.text) && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName))
         {
-            return;
+            IsLoggedIn.text = Classes.APILinks.PlayerUserName;
         }
+        return;
+        
     }
     public async void Login()
     {
@@ -116,6 +120,7 @@ public class SwitchScene : MonoBehaviour
         if (string.IsNullOrEmpty(Username) && string.IsNullOrEmpty(Password) && string.IsNullOrEmpty(Password2) && string.IsNullOrEmpty(Email))
         {
             IsLoggedIn.text = "Fields cannot be empty!";
+            return;
         }
         else if (Password != Password2)
         {

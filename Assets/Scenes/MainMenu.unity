@@ -391,7 +391,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 520360559}
 --- !u!114 &91309245
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1636,7 +1636,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 969125523}
 --- !u!1 &285932607
 GameObject:
   m_ObjectHideFlags: 0
@@ -1945,7 +1945,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 969125523}
 --- !u!1 &388886117
 GameObject:
   m_ObjectHideFlags: 0
@@ -2003,7 +2003,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 520360559}
 --- !u!114 &388886120
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3949,7 +3949,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 520360559}
 --- !u!114 &857512493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4376,7 +4376,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &968705088
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4881,7 +4881,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 231610569}
 --- !u!114 &1075189191
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7278,7 +7278,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 231610569}
 --- !u!114 &1690657756
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7430,7 +7430,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 1444882824}
 --- !u!114 &1699994093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7676,7 +7676,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 969125523}
 --- !u!1 &1751477967
 GameObject:
   m_ObjectHideFlags: 0
@@ -7964,7 +7964,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 969125523}
 --- !u!1 &1774825695
 GameObject:
   m_ObjectHideFlags: 0
@@ -8956,7 +8956,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1980608741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9097,7 +9097,7 @@ MonoBehaviour:
   Password2: 
   Email: 
   myInputs: []
-  IsLoggedIn: {fileID: 0}
+  IsLoggedIn: {fileID: 1444882824}
 --- !u!114 &2031691262
 MonoBehaviour:
   m_ObjectHideFlags: 0
