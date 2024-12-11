@@ -368,6 +368,7 @@ GameObject:
   - component: {fileID: 90998624}
   - component: {fileID: 90998623}
   - component: {fileID: 90998622}
+  - component: {fileID: 90998625}
   m_Layer: 5
   m_Name: Skip
   m_TagString: Untagged
@@ -438,7 +439,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 90998623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 90998625}
+        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
+        m_MethodName: Skip
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &90998623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -477,6 +490,45 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90998620}
   m_CullTransparentMesh: 1
+--- !u!114 &90998625
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 90998620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameBoard: {fileID: 1349955387}
+  Yellow1: {fileID: 3294556}
+  Yellow2: {fileID: 1513681005}
+  Yellow3: {fileID: 757060773}
+  Yellow4: {fileID: 1969536537}
+  Blue1: {fileID: 2057576095}
+  Blue2: {fileID: 308064651}
+  Blue3: {fileID: 324628296}
+  Blue4: {fileID: 2093903923}
+  Red1: {fileID: 838544739}
+  Red2: {fileID: 407058671}
+  Red3: {fileID: 758667285}
+  Red4: {fileID: 1541591901}
+  Green1: {fileID: 1642663700}
+  Green2: {fileID: 487918439}
+  Green3: {fileID: 893938841}
+  Green4: {fileID: 1375566228}
+  txtStartSquare: {fileID: 1425607832}
+  txtEndSquare: {fileID: 1076019310}
+  CurrentPlayer: {fileID: 1669965061}
+  DieRoll: {fileID: 391332960}
+  Player1: {fileID: 284581251}
+  Player2: {fileID: 1622973794}
+  Player3: {fileID: 1091728959}
+  Player4: {fileID: 1513617516}
+  DisplayMessage: {fileID: 610995119}
+  EnterMessage: {fileID: 485339827}
 --- !u!1 &98437021
 GameObject:
   m_ObjectHideFlags: 0
@@ -2659,13 +2711,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: bdd7f484e9b9c1f4db4e06c89b0ad47d, type: 3}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
+      - m_Target: {fileID: 610635264}
+        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
+        m_MethodName: Move
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -2718,15 +2770,36 @@ MonoBehaviour:
   m_GameObject: {fileID: 610635259}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bdd7f484e9b9c1f4db4e06c89b0ad47d, type: 3}
+  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: 
-  Password: 
-  Password2: 
-  Email: 
-  myInputs: []
-  IsLoggedIn: {fileID: 0}
+  gameBoard: {fileID: 1349955387}
+  Yellow1: {fileID: 3294556}
+  Yellow2: {fileID: 1513681005}
+  Yellow3: {fileID: 757060773}
+  Yellow4: {fileID: 1969536537}
+  Blue1: {fileID: 2057576095}
+  Blue2: {fileID: 308064651}
+  Blue3: {fileID: 324628296}
+  Blue4: {fileID: 2093903923}
+  Red1: {fileID: 838544739}
+  Red2: {fileID: 407058671}
+  Red3: {fileID: 758667285}
+  Red4: {fileID: 1541591901}
+  Green1: {fileID: 1642663700}
+  Green2: {fileID: 487918439}
+  Green3: {fileID: 893938841}
+  Green4: {fileID: 1375566228}
+  txtStartSquare: {fileID: 1425607832}
+  txtEndSquare: {fileID: 1076019310}
+  CurrentPlayer: {fileID: 1669965061}
+  DieRoll: {fileID: 391332960}
+  Player1: {fileID: 284581251}
+  Player2: {fileID: 1622973794}
+  Player3: {fileID: 1091728959}
+  Player4: {fileID: 1513617516}
+  DisplayMessage: {fileID: 610995119}
+  EnterMessage: {fileID: 485339827}
 --- !u!1 &610995117
 GameObject:
   m_ObjectHideFlags: 0

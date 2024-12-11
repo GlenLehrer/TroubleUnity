@@ -137,6 +137,14 @@ public class SetUpGameBoard : MonoBehaviour
             }
         }
     }
+    public void Move()
+    {
+        StartCoroutine("MakeMove");
+    }
+    public void Skip()
+    {
+        StartCoroutine("SkipTurn");
+    }
     private async Task MakeMove() //Add logic so only the player whose turn it is can move
     {
         if (Classes.APILinks.GameID == Guid.Empty)
