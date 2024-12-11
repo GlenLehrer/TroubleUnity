@@ -2252,6 +2252,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 196721120}
     m_Modifications:
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5024824012551251136, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1158204
@@ -3048,6 +3056,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 196721120}
     m_Modifications:
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5024824012551251136, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1158204
@@ -4810,6 +4826,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 196721120}
     m_Modifications:
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5024824012551251136, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1158204
@@ -11366,6 +11390,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 196721120}
     m_Modifications:
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_fontSize
+      value: 44.75
+      objectReference: {fileID: 0}
+    - target: {fileID: 1164065926451415325, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5024824012551251136, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.1158204
