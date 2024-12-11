@@ -694,11 +694,17 @@ public class SetUpGameBoard : MonoBehaviour
             await _connection.InvokeAsync("JoinGroup", groupName);
             _connection.On<string, string>("ReceiveMessage", (s1, s2) => UpdateMessages(s1, s2));
             _connection.On("UpdateGameBoard", async () => await UpdateGameBoard());
+            _connection.On("GroupJoined", async () => await GroupJoined());
 
-            //_connection.InvokeAsync("UpdateGameBoard", groupName);
-            //_connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, "Message Text");
-        }
-        private async Task BtnChat()
+        //_connection.InvokeAsync("UpdateGameBoard", groupName);
+        //_connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, "Message Text");
+    }
+
+    private async Task GroupJoined() //When I recieve messages
+    {
+        await FillLabels();
+    }
+    private async Task BtnChat()
         {
             if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
             {
