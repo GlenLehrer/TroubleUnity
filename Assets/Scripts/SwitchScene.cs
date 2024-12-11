@@ -39,6 +39,7 @@ public class SwitchScene : MonoBehaviour
             CreateAccount.gameObject.SetActive(false);
             Login.gameObject.SetActive(false);
             GameRoom.gameObject.SetActive(false);
+
         }
         else if (scene == "CreateAccount")
         {

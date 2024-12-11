@@ -14,9 +14,13 @@ using TMPro;
 using UnityEngine.Rendering;
 using UnityEditor;
 using Microsoft.AspNetCore.SignalR.Client;
+using UnityEngine.UI;
+using Unity.VisualScripting;
 
 public class SetUpGameBoard : MonoBehaviour
 {
+    public Button btnShowChat;
+
     public Game game;
     public GameObject gameBoard;
     public GameObject Yellow1;
@@ -239,6 +243,10 @@ public class SetUpGameBoard : MonoBehaviour
             EditorUtility.DisplayDialog("Errror", "Your Move is not Valid!", "Ok");
         }
 
+    }
+    public void AddComp()
+    {
+        StartCoroutine("AddComputer");
     }
     private async Task AddComputer()
     {
@@ -700,60 +708,64 @@ public class SetUpGameBoard : MonoBehaviour
         //_connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, "Message Text");
     }
 
+    public void ShowChat()
+    {
+        btnShowChat.gameObject.SetActive(!btnShowChat.IsActive());
+        GameObject CanvasParent = GameObject.Find("CanvasParent");
+        GameObject ChatMenu = CanvasParent.transform.Find("ChatMenu").gameObject;
+        ChatMenu.gameObject.SetActive(!ChatMenu.active);
+    }
     private async Task GroupJoined() //When I recieve messages
     {
         await FillLabels();
     }
-    private async Task BtnChat()
+    public void BtnChat()
+    {
+        if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
         {
-            if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
-            {
-                StartCoroutine("SendMessageToChannel", EnterMessage.text);
-                EnterMessage.text = "";
-            }
-            else
-            {
-                EditorUtility.DisplayDialog("Error", "Must be Logged in & at a game to Chat!", "Ok");
-            }
+            StartCoroutine("SendMessageToChannel", EnterMessage.text);
+            EnterMessage.text = "";
         }
-        private async void UpdateOtherGameBoards() //When I change my GameBoard
+        else
         {
-            await _connection.InvokeAsync("UpdateGameBoard", groupName);
+            EditorUtility.DisplayDialog("Error", "Must be Logged in & at a game to Chat!", "Ok");
         }
-        private async void SendMessageToChannel(string message) //When I write a message
-        {
-            string groupName = "g" + Classes.APILinks.GameID.ToString();
-            await _connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, message);
-        }
+    }
+    private async Task UpdateOtherGameBoards() //When I change my GameBoard
+    {
+        await _connection.InvokeAsync("UpdateGameBoard", groupName);
+    }
+    private async void SendMessageToChannel(string message) //When I write a message
+    {
+        string groupName = "g" + Classes.APILinks.GameID.ToString();
+        await _connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, message);
+    }
 
-        private void UpdateMessages(string name, string message) //When I recieve messages
-        {
-            try
-            {          
-                DisplayMessage.text += name + " : " + message + " \n";
-
-            }
-            catch (Exception ex)
-            {
-            }
-
-
+    private void UpdateMessages(string name, string message) //When I recieve messages
+    {
+        try
+        {          
+            DisplayMessage.text += name + " : " + message + " \n";
 
         }
-        private async Task UpdateGameBoard() //When I receive changes to Game Board from other players.
+        catch (Exception ex)
         {
-            HttpClient client = new HttpClient();
-            string responseBody = await client.GetStringAsync(new Uri(Classes.APILinks.APIAddress + "game/"));
-            if (responseBody != null)
-            {
-                List<Classes.Game> gameList = JsonConvert.DeserializeObject<List<Classes.Game>>(responseBody).ToList(); ;
-                Classes.Game game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
-
-                StartCoroutine("FillLabels");
-                if (game != null)
-                    SetUpBoard(game);
-            }
         }
+    }
+    private async Task UpdateGameBoard() //When I receive changes to Game Board from other players.
+    {
+        HttpClient client = new HttpClient();
+        string responseBody = await client.GetStringAsync(new Uri(Classes.APILinks.APIAddress + "game/"));
+        if (responseBody != null)
+        {
+            List<Classes.Game> gameList = JsonConvert.DeserializeObject<List<Classes.Game>>(responseBody).ToList(); ;
+            Classes.Game game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
+
+            StartCoroutine("FillLabels");
+            if (game != null)
+                SetUpBoard(game);
+        }
+    }
 
 
 }
