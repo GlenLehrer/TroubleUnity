@@ -368,7 +368,6 @@ GameObject:
   - component: {fileID: 90998624}
   - component: {fileID: 90998623}
   - component: {fileID: 90998622}
-  - component: {fileID: 90998625}
   m_Layer: 5
   m_Name: Skip
   m_TagString: Untagged
@@ -439,19 +438,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 90998623}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 90998625}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: Skip
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &90998623
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -490,46 +477,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 90998620}
   m_CullTransparentMesh: 1
---- !u!114 &90998625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 90998620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!1 &92152316
 GameObject:
   m_ObjectHideFlags: 0
@@ -542,7 +489,6 @@ GameObject:
   - component: {fileID: 92152321}
   - component: {fileID: 92152320}
   - component: {fileID: 92152319}
-  - component: {fileID: 92152318}
   m_Layer: 5
   m_Name: HideChat
   m_TagString: Untagged
@@ -570,46 +516,6 @@ RectTransform:
   m_AnchoredPosition: {x: -30, y: -38.6}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &92152318
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 92152316}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!114 &92152319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -653,19 +559,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 92152320}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 92152318}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: ShowChat
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &92152320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1271,7 +1165,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -13}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &292586827
@@ -1294,7 +1188,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Add Computer
+  m_text: 'Chat
 
 
 '
@@ -1536,7 +1430,6 @@ GameObject:
   - component: {fileID: 370549632}
   - component: {fileID: 370549631}
   - component: {fileID: 370549630}
-  - component: {fileID: 370549629}
   m_Layer: 5
   m_Name: ShowChat
   m_TagString: Untagged
@@ -1564,46 +1457,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3, y: -176}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &370549629
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 370549627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!114 &370549630
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1647,19 +1500,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 370549631}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 370549629}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: AddComp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainMenu
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &370549631
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2051,7 +1892,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -14}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &421861624
@@ -2821,7 +2662,6 @@ GameObject:
   - component: {fileID: 539287762}
   - component: {fileID: 539287761}
   - component: {fileID: 539287760}
-  - component: {fileID: 539287763}
   m_Layer: 5
   m_Name: SendMessage
   m_TagString: Untagged
@@ -2892,19 +2732,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 539287761}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 539287763}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: BtnChat
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &539287761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2943,46 +2771,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539287758}
   m_CullTransparentMesh: 1
---- !u!114 &539287763
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539287758}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!1 &574682057
 GameObject:
   m_ObjectHideFlags: 0
@@ -3320,7 +3108,6 @@ GameObject:
   - component: {fileID: 610635263}
   - component: {fileID: 610635262}
   - component: {fileID: 610635261}
-  - component: {fileID: 610635264}
   m_Layer: 5
   m_Name: Move
   m_TagString: Untagged
@@ -3391,19 +3178,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 610635262}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 610635264}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: Move
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &610635262
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3442,46 +3217,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 610635259}
   m_CullTransparentMesh: 1
---- !u!114 &610635264
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 610635259}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!1 &610995117
 GameObject:
   m_ObjectHideFlags: 0
@@ -3509,14 +3244,14 @@ RectTransform:
   m_GameObject: {fileID: 610995117}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.48202, y: 0.7934424, z: 1}
+  m_LocalScale: {x: 0.48202, y: 1.1001381, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 98437022}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 19.6}
+  m_AnchoredPosition: {x: 0, y: 14}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &610995119
@@ -3539,7 +3274,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3566,8 +3301,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 20
-  m_fontSizeBase: 20
+  m_fontSize: 12
+  m_fontSizeBase: 12
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -3576,7 +3311,7 @@ MonoBehaviour:
   m_HorizontalAlignment: 1
   m_VerticalAlignment: 256
   m_textAlignment: 65535
-  m_characterSpacing: 10
+  m_characterSpacing: 4
   m_wordSpacing: 2
   m_lineSpacing: 2
   m_lineSpacingMax: 0
@@ -6028,7 +5763,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
   gameBoard: {fileID: 1349955387}
   Yellow1: {fileID: 3294556}
   Yellow2: {fileID: 1513681005}
@@ -6054,6 +5788,12 @@ MonoBehaviour:
   Player2: {fileID: 1622973794}
   Player3: {fileID: 1091728959}
   Player4: {fileID: 1513617516}
+  MovePiece: {fileID: 610635261}
+  SkipATurn: {fileID: 90998622}
+  AddComputerPlayer: {fileID: 1830857714}
+  btnShowChat: {fileID: 370549630}
+  HideChat: {fileID: 92152319}
+  SendChat: {fileID: 539287760}
   DisplayMessage: {fileID: 610995119}
   EnterMessage: {fileID: 485339827}
 --- !u!23 &1349955389
@@ -7384,7 +7124,6 @@ GameObject:
   - component: {fileID: 1830857716}
   - component: {fileID: 1830857715}
   - component: {fileID: 1830857714}
-  - component: {fileID: 1830857713}
   m_Layer: 5
   m_Name: AddComputer
   m_TagString: Untagged
@@ -7412,46 +7151,6 @@ RectTransform:
   m_AnchoredPosition: {x: 3, y: -152}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1830857713
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1830857711}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3b3496d540ba3c84289c58abbd0a67a6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  btnShowChat: {fileID: 370549630}
-  gameBoard: {fileID: 1349955387}
-  Yellow1: {fileID: 3294556}
-  Yellow2: {fileID: 1513681005}
-  Yellow3: {fileID: 757060773}
-  Yellow4: {fileID: 1969536537}
-  Blue1: {fileID: 2057576095}
-  Blue2: {fileID: 308064651}
-  Blue3: {fileID: 324628296}
-  Blue4: {fileID: 2093903923}
-  Red1: {fileID: 838544739}
-  Red2: {fileID: 407058671}
-  Red3: {fileID: 758667285}
-  Red4: {fileID: 1541591901}
-  Green1: {fileID: 1642663700}
-  Green2: {fileID: 487918439}
-  Green3: {fileID: 893938841}
-  Green4: {fileID: 1375566228}
-  txtStartSquare: {fileID: 1425607832}
-  txtEndSquare: {fileID: 1076019310}
-  CurrentPlayer: {fileID: 1669965061}
-  DieRoll: {fileID: 391332960}
-  Player1: {fileID: 284581251}
-  Player2: {fileID: 1622973794}
-  Player3: {fileID: 1091728959}
-  Player4: {fileID: 1513617516}
-  DisplayMessage: {fileID: 610995119}
-  EnterMessage: {fileID: 485339827}
 --- !u!114 &1830857714
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7495,19 +7194,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1830857715}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1830857713}
-        m_TargetAssemblyTypeName: SetUpGameBoard, Assembly-CSharp
-        m_MethodName: AddComp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: MainMenu
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &1830857715
 MonoBehaviour:
   m_ObjectHideFlags: 0

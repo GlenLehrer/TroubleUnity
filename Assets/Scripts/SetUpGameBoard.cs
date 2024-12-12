@@ -16,12 +16,12 @@ using UnityEditor;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine.UI;
 using Unity.VisualScripting;
+using UnityEngine.InputSystem;
 
 public class SetUpGameBoard : MonoBehaviour
 {
-    public Button btnShowChat;
 
-    public Game game;
+
     public GameObject gameBoard;
     public GameObject Yellow1;
     public GameObject Yellow2;
@@ -54,28 +54,47 @@ public class SetUpGameBoard : MonoBehaviour
     public TMP_Text Player3;
     public TMP_Text Player4;
 
+
+
+    public static Game game;
+    public static List<Classes.Game> gameList; //List of all games
+    public static List<Classes.PlayerGame> pgList; //List of all PlayerGames
+    public static List<Classes.Player> playerList; //List of all players
+    public static List<(Classes.Player, string)> PlayersInThisGame; //List of players playing in the current game
+
+    public static HubConnection _connection;
+    public static string groupName = "";
+
+    public Button MovePiece;
+    public Button SkipATurn;
+    public Button AddComputerPlayer;
+    public Button btnShowChat;
+
+    public Button HideChat;
+    public Button SendChat;
     public TMP_Text DisplayMessage;
     public TMP_InputField EnterMessage;
-
-    List<Classes.Game> gameList; //List of all games
-    List<Classes.PlayerGame> pgList; //List of all PlayerGames
-    List<Classes.Player> playerList; //List of all players
-    List<(Classes.Player, string)> PlayersInThisGame; //List of players playing in the current game
-
-    HubConnection _connection;
-    string groupName = "";
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    async void Start()
     {
+        
+        MovePiece.onClick.AddListener(() => Move());
+        SkipATurn.onClick.AddListener(() => Skip());
+        AddComputerPlayer.onClick.AddListener(() => AddComp());
+        btnShowChat.onClick.AddListener(() => ShowChat());
+
+        HideChat.onClick.AddListener(() => ShowChat());
+        SendChat.onClick.AddListener(() => BtnChat());
+
+        //JoinAGame1.onClick.AddListener(async () => await BtnJoinGame(GameID));
         if (Classes.APILinks.GameID == null || Classes.APILinks.GameID == Guid.Empty)
         {
             ResetToNewGameBoard();
         }
         else
         {
-            StartCoroutine("FillLabels");            
-            if(game != null)
+            await FillLabels();
+            if (game != null)
             {
                 SetUpBoard(game);
                 ConnectToChannel();
@@ -163,11 +182,11 @@ public class SetUpGameBoard : MonoBehaviour
         }
         HttpClient client = new HttpClient();
 
-        int startSquare; 
+        int startSquare;
         int endSquare; 
         if(txtStartSquare != null && txtEndSquare != null)
         {
-            if (!int.TryParse(txtStartSquare.text, out startSquare) || !int.TryParse(txtEndSquare.text, out endSquare))
+            if (!int.TryParse(txtStartSquare.text.Trim(), out startSquare) || !int.TryParse(txtEndSquare.text.Trim(), out endSquare))
             {
                 EditorUtility.DisplayDialog("Error", "Your Move is not Valid!", "Ok");
                 return;
@@ -175,7 +194,7 @@ public class SetUpGameBoard : MonoBehaviour
         }
         else
         {
-            EditorUtility.DisplayDialog("Error", "Your Move is not Valid!", "Ok");
+            EditorUtility.DisplayDialog("Error", "No Data to Move!", "Ok");
             return;
         }
 
@@ -212,7 +231,6 @@ public class SetUpGameBoard : MonoBehaviour
 
         HttpResponseMessage response = client.PutAsync(new Uri(Classes.APILinks.APIAddress + "Game/" + startSquare + "/" + endSquare + "/1"), content).Result;
         string result = response.Content.ReadAsStringAsync().Result;
-
         if (response.StatusCode == System.Net.HttpStatusCode.OK && result == "true")
         {
             string responseBody = await client.GetStringAsync(new Uri(Classes.APILinks.APIAddress + "game/"));
@@ -221,8 +239,8 @@ public class SetUpGameBoard : MonoBehaviour
 
                 gameList = JsonConvert.DeserializeObject<List<Game>>(responseBody);
                 game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
-           
-                StartCoroutine("FillLabels");
+
+                await FillLabels();
                 if (game != null)
                     SetUpBoard(game);
 
@@ -240,7 +258,7 @@ public class SetUpGameBoard : MonoBehaviour
         }
         else
         {
-            EditorUtility.DisplayDialog("Errror", "Your Move is not Valid!", "Ok");
+            EditorUtility.DisplayDialog("Error", "Your Move is not Valid!", "Ok");
         }
 
     }
@@ -338,7 +356,7 @@ public class SetUpGameBoard : MonoBehaviour
         string result = response.Content.ReadAsStringAsync().Result;
         //result = result.Replace("\'", "").Replace("\\", "").Replace("\"", "").Trim();
 
-        StartCoroutine("FillLabels");
+        await FillLabels();
         UpdateOtherGameBoards();
     }
 
@@ -401,7 +419,7 @@ public class SetUpGameBoard : MonoBehaviour
             {
                 gameList = JsonConvert.DeserializeObject<List<Game>>(responseBody);
                 game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
-                StartCoroutine("FillLabels");
+                await FillLabels();
                 if (game != null)
                     SetUpBoard(game);
                 UpdateOtherGameBoards();
@@ -517,7 +535,7 @@ public class SetUpGameBoard : MonoBehaviour
                                   //Put a Yellow piece on the right square
                             if (CurrentYellowPieceIndex <= 3)
                             {
-                                YellowPieces[i].transform.position = Coordinates[i];
+                                YellowPieces[CurrentYellowPieceIndex].transform.position = Coordinates[i];
                             }
                             CurrentYellowPieceIndex++;
                             break;
@@ -525,7 +543,7 @@ public class SetUpGameBoard : MonoBehaviour
                                  //Put a Blue piece on the right square
                             if (CurrentBluePieceIndex <= 3)
                             {
-                                BluePieces[i].transform.position = Coordinates[i];
+                                BluePieces[CurrentBluePieceIndex].transform.position = Coordinates[i];
                             }
                             CurrentBluePieceIndex++;
                             break;
@@ -533,7 +551,7 @@ public class SetUpGameBoard : MonoBehaviour
                                  //Put a Red piece on the right square
                             if (CurrentRedPieceIndex <= 3)
                             {
-                                RedPieces[i].transform.position = Coordinates[i];
+                                RedPieces[CurrentRedPieceIndex].transform.position = Coordinates[i];
                             }
                             CurrentRedPieceIndex++;
                             break;
@@ -541,7 +559,7 @@ public class SetUpGameBoard : MonoBehaviour
                                  //Put a Green piece on the right square
                             if(CurrentGreenPieceIndex <= 3)
                             {
-                                GreenPieces[i].transform.position = Coordinates[i];
+                                GreenPieces[CurrentGreenPieceIndex].transform.position = Coordinates[i];
                             }
                             
                             CurrentGreenPieceIndex++;
@@ -710,7 +728,7 @@ public class SetUpGameBoard : MonoBehaviour
 
     public void ShowChat()
     {
-        btnShowChat.gameObject.SetActive(!btnShowChat.IsActive());
+        //btnShowChat.gameObject.SetActive(!btnShowChat.IsActive());
         GameObject CanvasParent = GameObject.Find("CanvasParent");
         GameObject ChatMenu = CanvasParent.transform.Find("ChatMenu").gameObject;
         ChatMenu.gameObject.SetActive(!ChatMenu.active);
@@ -719,7 +737,7 @@ public class SetUpGameBoard : MonoBehaviour
     {
         await FillLabels();
     }
-    public void BtnChat()
+    public async Task BtnChat()
     {
         if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
         {
@@ -735,7 +753,7 @@ public class SetUpGameBoard : MonoBehaviour
     {
         await _connection.InvokeAsync("UpdateGameBoard", groupName);
     }
-    private async void SendMessageToChannel(string message) //When I write a message
+    private async Task SendMessageToChannel(string message) //When I write a message
     {
         string groupName = "g" + Classes.APILinks.GameID.ToString();
         await _connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, message);
@@ -743,10 +761,14 @@ public class SetUpGameBoard : MonoBehaviour
 
     private void UpdateMessages(string name, string message) //When I recieve messages
     {
-        try
-        {          
-            DisplayMessage.text += name + " : " + message + " \n";
+        StartCoroutine("MessageUpdate", $"{name}: {message}");
+    }
 
+    private void MessageUpdate(string message)
+    {
+        try
+        {
+            DisplayMessage.text += message +  "\n";
         }
         catch (Exception ex)
         {
@@ -761,7 +783,7 @@ public class SetUpGameBoard : MonoBehaviour
             List<Classes.Game> gameList = JsonConvert.DeserializeObject<List<Classes.Game>>(responseBody).ToList(); ;
             Classes.Game game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
 
-            StartCoroutine("FillLabels");
+            await FillLabels();
             if (game != null)
                 SetUpBoard(game);
         }

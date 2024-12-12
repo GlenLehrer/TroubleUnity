@@ -11,6 +11,7 @@ using System.Linq;
 using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.InputSystem;
+using System.Security.Cryptography;
 
 public class GameData //Model to display Data in Game Lobby.
 {
@@ -31,6 +32,7 @@ public class GameData //Model to display Data in Game Lobby.
 }
 public class JoinGame : MonoBehaviour
 {
+    public UnityEngine.UI.Button LoadGames;
     public TMP_Text NumberOfGamesLabel;
     public TMP_InputField LoadGamesInput;
     public UnityEngine.UI.Button NewGame;
@@ -54,9 +56,9 @@ public class JoinGame : MonoBehaviour
 
     public List<GameData> entities = new List<GameData>();
 
-    List<Game> gameList;
-    List<PlayerGame> pgList;
-    List<Player> playerList;
+    public List<Game> gameList;
+    public List<PlayerGame> pgList;
+    public List<Player> playerList;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -70,22 +72,22 @@ public class JoinGame : MonoBehaviour
         
     }
 
-    public void btnGo() //Displays games
+    public async Task btnGo() //Displays games
     {
-        StartCoroutine("Reload");
+        await Reload();
     }
-    public void BtnJoinGame(Guid GameID)
+    public async Task BtnJoinGame(Guid GameID)
     {
         Classes.APILinks.GameID = GameID;
-        StartCoroutine("PlayGame");
+        await PlayGame();
     }
 
-    public void BtnCreateGame()
+    public async Task BtnCreateGame()
     {
         Classes.APILinks.GameID = Guid.Empty;
-        StartCoroutine("CreateGame");
+        await CreateGame();
     }
-    public void BtnDeleteGame(Guid GameID)
+    public async Task BtnDeleteGame(Guid GameID)
     {
         Classes.APILinks.GameID = GameID;
         Game game = gameList.Where(data => data.Id == Classes.APILinks.GameID).First(); //Need to set GameID
@@ -93,7 +95,7 @@ public class JoinGame : MonoBehaviour
         HttpClient client = new HttpClient();
         HttpResponseMessage response = client.DeleteAsync(Classes.APILinks.APIAddress + "game/" + Classes.APILinks.GameID + "/false").Result;
         Classes.APILinks.GameID = Guid.Empty;
-        StartCoroutine("Reload");
+        await Reload();
     }
     public async Task CreateGame()
     {
@@ -299,59 +301,62 @@ public class JoinGame : MonoBehaviour
         int start = 0;
         if(!int.TryParse(LoadGamesInput.text, out start))
         {
-            Rebind();
+            await Rebind();
         }
-        else if(start > entities.Count - 1 || start < entities.Count - 1)
+        else if(start > entities.Count - 1)
         {
             EditorUtility.DisplayDialog("Rebind", "Game Loading Value is set out of range!", "OK");
-            Rebind();
+            await Rebind();
         }
         else
         {
-            Rebind(start);
+            await Rebind(start);
         }
 
     }
-    private void Rebind(int startItem = 0) //Starts at a 0 Index //Uses public List<GameData> entities, for the data it displays
+    private async Task Rebind(int startItem = 0) //Starts at a 0 Index //Uses public List<GameData> entities, for the data it displays
     {
         NumberOfGamesLabel.text = $"Go to Games(0-{entities.Count - 1})";
         LoadGamesInput.text = "";
-        int endCount = startItem + 3 < entities.Count - 1? startItem + 3 : entities.Count - 1;
+        int endCount = startItem + 3 < entities.Count ? startItem + 3 : entities.Count;
         int count = 0;
         for (int i = startItem; i < endCount; i++) //Add these controls for each row
         {
             string label = entities[i].GameNumber.ToString() + " " +
                 entities[i].UserNamesAndColor +
-                "\n" + entities[i].IsGameStarted == "true" ? "Started" : "Unstarted";
+                " " + (entities[i].IsGameStarted == "true" ? "Started" : "Unstarted");
 
+            Guid GameID = entities[i].GameID; //putting entities[i].GameID directly, would cause an index out of range exception.
+                                                //Most likely, something to do with threading affects accessing the entities varaible.
             if (count == 0)
             {
                 GameInfo1.text = label;
-                JoinAGame1.onClick.AddListener(() => BtnJoinGame(entities[i].GameID));
-                Delete1.onClick.AddListener(() => BtnDeleteGame(entities[i].GameID));
+                JoinAGame1.onClick.AddListener(async () => await BtnJoinGame(GameID)); 
+                Delete1.onClick.AddListener(async () => await BtnDeleteGame(GameID));
             }
             else if (count == 1)
             {
                 GameInfo2.text = label;
-                JoinAGame2.onClick.AddListener(() => BtnJoinGame(entities[i].GameID));
-                Delete2.onClick.AddListener(() => BtnDeleteGame(entities[i].GameID));
+                JoinAGame2.onClick.AddListener(async () => await BtnJoinGame(GameID));
+                Delete2.onClick.AddListener(async () => await BtnDeleteGame(GameID));
             }
             else if (count == 2)
             {
                 GameInfo3.text = label;
-                JoinAGame3.onClick.AddListener(() => BtnJoinGame(entities[i].GameID));
-                Delete3.onClick.AddListener(() => BtnDeleteGame(entities[i].GameID));
+                JoinAGame3.onClick.AddListener(async() => await BtnJoinGame(GameID));
+                Delete3.onClick.AddListener(async() => await BtnDeleteGame(GameID));
             }
             else if (count == 3)
             {
                 GameInfo4.text = label;
-                JoinAGame4.onClick.AddListener(() => BtnJoinGame(entities[i].GameID));
-                Delete4.onClick.AddListener(() => BtnDeleteGame(entities[i].GameID));
+                JoinAGame4.onClick.AddListener(async() => await BtnJoinGame(GameID));
+                Delete4.onClick.AddListener(async() => await BtnDeleteGame(GameID));
                 return;
             }
             count++;
         }
-        NewGame.onClick.AddListener(() => BtnCreateGame());
+        NewGame.onClick.AddListener(async() => await BtnCreateGame());
+        LoadGames.onClick.AddListener(async () => await btnGo());
 
     }
 }
