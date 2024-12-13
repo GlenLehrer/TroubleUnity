@@ -1,26 +1,24 @@
 using Newtonsoft.Json;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Net.Http;
-using System.Net;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using static Classes;
-using static UnityEditor.Experimental.GraphView.GraphView;
 using System.Threading.Tasks;
 using System.Linq;
 using TMPro;
-using UnityEngine.Rendering;
 using UnityEditor;
 using Microsoft.AspNetCore.SignalR.Client;
 using UnityEngine.UI;
-using Unity.VisualScripting;
-using UnityEngine.InputSystem;
+using UnityEditor.Search;
+using System.Threading;
+using System.Collections.Concurrent;
+
 
 public class SetUpGameBoard : MonoBehaviour
 {
-
+    private ConcurrentQueue<Action> callbacks = new ConcurrentQueue<Action>();
 
     public GameObject gameBoard;
     public GameObject Yellow1;
@@ -56,14 +54,14 @@ public class SetUpGameBoard : MonoBehaviour
 
 
 
-    public static Game game;
-    public static List<Classes.Game> gameList; //List of all games
-    public static List<Classes.PlayerGame> pgList; //List of all PlayerGames
-    public static List<Classes.Player> playerList; //List of all players
-    public static List<(Classes.Player, string)> PlayersInThisGame; //List of players playing in the current game
+    public Game game;
+    public List<Classes.Game> gameList; //List of all games
+    public List<Classes.PlayerGame> pgList; //List of all PlayerGames
+    public List<Classes.Player> playerList; //List of all players
+    public List<(Classes.Player, string)> PlayersInThisGame; //List of players playing in the current game
 
-    public static HubConnection _connection;
-    public static string groupName = "";
+    public HubConnection _connection;
+    public string groupName = "";
 
     public Button MovePiece;
     public Button SkipATurn;
@@ -77,14 +75,13 @@ public class SetUpGameBoard : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     async void Start()
     {
-        
         MovePiece.onClick.AddListener(() => Move());
         SkipATurn.onClick.AddListener(() => Skip());
         AddComputerPlayer.onClick.AddListener(() => AddComp());
         btnShowChat.onClick.AddListener(() => ShowChat());
 
         HideChat.onClick.AddListener(() => ShowChat());
-        SendChat.onClick.AddListener(() => BtnChat());
+        SendChat.onClick.AddListener(async () => await BtnChat());
 
         //JoinAGame1.onClick.AddListener(async () => await BtnJoinGame(GameID));
         if (Classes.APILinks.GameID == null || Classes.APILinks.GameID == Guid.Empty)
@@ -97,8 +94,20 @@ public class SetUpGameBoard : MonoBehaviour
             if (game != null)
             {
                 SetUpBoard(game);
-                ConnectToChannel();
+                await ConnectToChannel();
+                
             }
+        }
+    }
+    private void Update()
+    {
+        if (callbacks.Count == 0) return;
+
+        while (callbacks.Count != 0)
+        {
+            Action a;
+            if (!callbacks.TryDequeue(out a)) continue;
+            a.Invoke();
         }
     }
     public async Task FillLabels()
@@ -240,11 +249,13 @@ public class SetUpGameBoard : MonoBehaviour
                 gameList = JsonConvert.DeserializeObject<List<Game>>(responseBody);
                 game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
 
+
                 await FillLabels();
                 if (game != null)
+                {
                     SetUpBoard(game);
-
-               UpdateOtherGameBoards();
+                    await UpdateOtherGameBoards();
+                }
                 if (game.GameComplete == 1)
                 {
                     EditorUtility.DisplayDialog("Winner", "Game has been won!", "Ok");
@@ -357,7 +368,7 @@ public class SetUpGameBoard : MonoBehaviour
         //result = result.Replace("\'", "").Replace("\\", "").Replace("\"", "").Trim();
 
         await FillLabels();
-        UpdateOtherGameBoards();
+        await UpdateOtherGameBoards();
     }
 
     private async Task SkipTurn()
@@ -421,52 +432,24 @@ public class SetUpGameBoard : MonoBehaviour
                 game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
                 await FillLabels();
                 if (game != null)
+                {
                     SetUpBoard(game);
-                UpdateOtherGameBoards();
+                    await UpdateOtherGameBoards();
+                }
+                
+                    
+                
             }
         }
     }
-    //Update Make Move, Skip Turn, Play Computer, OnAppearing, OnDisappearing
-    //*******************************
-    //*******************************
 
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************//*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
-    //*******************************
+    //// Update is called once per frame
+    //void Update()
+    //{
+    //    //Testing Move function
+    //    //if (!MoveSquare(Yellow1, BoardPositions.RedHomeSquare4)) {}
 
-    //*******************************
-    //*******************************
-    //*******************************
-
-    // Update is called once per frame
-    void Update()
-    {
-        //Testing Move function
-        //if (!MoveSquare(Yellow1, BoardPositions.RedHomeSquare4)) {}
-
-    }
+    //}
     bool MoveSquare(GameObject piece, Vector3 EndSpot)
     {
         float speed = 150;
@@ -709,8 +692,8 @@ public class SetUpGameBoard : MonoBehaviour
         return XYvalues;
     }
 
-        private async void ConnectToChannel()
-        {
+    private async Task ConnectToChannel()
+    {
 
             _connection = new HubConnectionBuilder()
                 .WithUrl(Classes.APILinks.hubAddress)
@@ -735,13 +718,15 @@ public class SetUpGameBoard : MonoBehaviour
     }
     private async Task GroupJoined() //When I recieve messages
     {
-        await FillLabels();
+        Action a = new Action(async () => await FillLabels());
+        callbacks.Enqueue(a);
+        //await FillLabels();
     }
     public async Task BtnChat()
     {
         if (Classes.APILinks.PlayerID != Guid.Empty && !string.IsNullOrEmpty(Classes.APILinks.PlayerUserName) && Classes.APILinks.GameID != Guid.Empty && _connection != null)
         {
-            StartCoroutine("SendMessageToChannel", EnterMessage.text);
+            await SendMessageToChannel(EnterMessage.text);
             EnterMessage.text = "";
         }
         else
@@ -759,18 +744,20 @@ public class SetUpGameBoard : MonoBehaviour
         await _connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, message);
     }
 
-    private void UpdateMessages(string name, string message) //When I recieve messages
+    private async Task UpdateMessages(string name, string message) //When I recieve messages
     {
-        StartCoroutine("MessageUpdate", $"{name}: {message}");
+        //StartCoroutine("MessageUpdate", $"{name}: {message}");
+        Action a = new Action(async () => await MessageUpdate($"{name}: {message}"));
+        callbacks.Enqueue(a);
     }
 
-    private void MessageUpdate(string message)
-    {
+    private async Task MessageUpdate(string message)
+    {                  
         try
-        {
-            DisplayMessage.text += message +  "\n";
+        {          
+            DisplayMessage.text += message + "\n";               
         }
-        catch (Exception ex)
+        catch (Exception)
         {
         }
     }
@@ -783,9 +770,14 @@ public class SetUpGameBoard : MonoBehaviour
             List<Classes.Game> gameList = JsonConvert.DeserializeObject<List<Classes.Game>>(responseBody).ToList(); ;
             Classes.Game game = gameList.Where(g => g.Id == Classes.APILinks.GameID).First();
 
-            await FillLabels();
-            if (game != null)
-                SetUpBoard(game);
+            //await FillLabels();
+            //if (game != null)               
+            //    SetUpBoard(game);
+            Action a = new Action(async () => await FillLabels());
+            callbacks.Enqueue(a);
+            Action b = new Action(() => SetUpBoard(game));
+            callbacks.Enqueue(b);
+            
         }
     }
 

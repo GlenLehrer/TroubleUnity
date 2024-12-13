@@ -2332,7 +2332,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 142193649423531333, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3082,7 +3083,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 142193649423531333, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -4364,7 +4366,6 @@ GameObject:
   - component: {fileID: 793853630}
   - component: {fileID: 793853629}
   - component: {fileID: 793853628}
-  - component: {fileID: 793853631}
   m_Layer: 5
   m_Name: GameNumber
   m_TagString: Untagged
@@ -4531,34 +4532,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 793853626}
   m_CullTransparentMesh: 1
---- !u!114 &793853631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 793853626}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3535ff733a9e8e843ad527d946f90a4a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  LoadGames: {fileID: 0}
-  NumberOfGamesLabel: {fileID: 0}
-  LoadGamesInput: {fileID: 0}
-  NewGame: {fileID: 0}
-  GameInfo1: {fileID: 5894972598007135772}
-  JoinAGame1: {fileID: 5894972598007135771}
-  Delete1: {fileID: 5894972598007135770}
-  GameInfo2: {fileID: 919009124}
-  JoinAGame2: {fileID: 919009123}
-  Delete2: {fileID: 919009122}
-  GameInfo3: {fileID: 408765649}
-  JoinAGame3: {fileID: 408765648}
-  Delete3: {fileID: 408765647}
-  GameInfo4: {fileID: 512730197}
-  JoinAGame4: {fileID: 512730196}
-  Delete4: {fileID: 512730195}
 --- !u!1 &857512490
 GameObject:
   m_ObjectHideFlags: 0
@@ -4799,7 +4772,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 142193649423531333, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -11270,7 +11244,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: Row
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 142193649423531333, guid: eafeea96dab6e9342b616cb414c8e5ac, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

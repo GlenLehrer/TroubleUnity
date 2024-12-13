@@ -12,6 +12,8 @@ using UnityEngine.SceneManagement;
 using TMPro;
 using UnityEngine.InputSystem;
 using System.Security.Cryptography;
+using System.Collections.Concurrent;
+using Unity.VisualScripting;
 
 public class GameData //Model to display Data in Game Lobby.
 {
@@ -32,6 +34,9 @@ public class GameData //Model to display Data in Game Lobby.
 }
 public class JoinGame : MonoBehaviour
 {
+    private ConcurrentQueue<Action> callbacks = new ConcurrentQueue<Action>();  //To change UI elements with asynchronous calls.
+                                                                                //Can only change UI on main thread
+
     public UnityEngine.UI.Button LoadGames;
     public TMP_Text NumberOfGamesLabel;
     public TMP_InputField LoadGamesInput;
@@ -63,18 +68,28 @@ public class JoinGame : MonoBehaviour
     void Start()
     {
         Classes.APILinks.GameID = Guid.Empty;
+        NewGame.onClick.AddListener(async () => await BtnCreateGame());
+        LoadGames.onClick.AddListener(async () => await btnGo());
         StartCoroutine("Reload"); //Reload Page elements in case there are any new changes
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (callbacks.Count == 0) return;
+
+        while (callbacks.Count != 0)
+        {
+            Action a;
+            if (!callbacks.TryDequeue(out a)) continue;
+            a.Invoke();
+        }
     }
 
     public async Task btnGo() //Displays games
     {
-        await Reload();
+        Action a = new Action(async () => await Reload());
+        callbacks.Enqueue(a);      
     }
     public async Task BtnJoinGame(Guid GameID)
     {
@@ -83,7 +98,7 @@ public class JoinGame : MonoBehaviour
     }
 
     public async Task BtnCreateGame()
-    {
+    {       
         Classes.APILinks.GameID = Guid.Empty;
         await CreateGame();
     }
@@ -95,10 +110,21 @@ public class JoinGame : MonoBehaviour
         HttpClient client = new HttpClient();
         HttpResponseMessage response = client.DeleteAsync(Classes.APILinks.APIAddress + "game/" + Classes.APILinks.GameID + "/false").Result;
         Classes.APILinks.GameID = Guid.Empty;
-        await Reload();
+        Action a = new Action(async () => await Reload());
+        callbacks.Enqueue(a);
     }
     public async Task CreateGame()
     {
+        if (Classes.APILinks.PlayerID == Guid.Empty || Classes.APILinks.PlayerID == null)
+        {
+            EditorUtility.DisplayDialog("Error", "Can't Create Game When Not Logged In!", "OK");
+        }
+        else
+        {
+            EditorUtility.DisplayDialog("Creating Game", "Please wait...", "OK");
+        }
+            
+
         if (Classes.APILinks.PlayerID != Guid.Empty)
         {
             Game game = new Game()  //New Game.  All pieces start on their home squares.
@@ -292,12 +318,12 @@ public class JoinGame : MonoBehaviour
                     entities.Add(gameData);
                 }
             }
+            entities.Sort(new GameData.GameDataCompare());
             for (int i = 0; i < entities.Count; i++)
             {
                 entities[i].GameNumber = i + 1;
             }
-        }
-        entities.Sort(new GameData.GameDataCompare());
+        }   
         int start = 0;
         if(!int.TryParse(LoadGamesInput.text, out start))
         {
@@ -310,6 +336,7 @@ public class JoinGame : MonoBehaviour
         }
         else
         {
+            //start = int.Parse(LoadGamesInput.text);
             await Rebind(start);
         }
 
@@ -318,11 +345,27 @@ public class JoinGame : MonoBehaviour
     {
         NumberOfGamesLabel.text = $"Go to Games(0-{entities.Count - 1})";
         LoadGamesInput.text = "";
-        int endCount = startItem + 3 < entities.Count ? startItem + 3 : entities.Count;
+        int endCount = startItem + 4 < entities.Count ? startItem + 4 : entities.Count;
         int count = 0;
+        string label = "";
+        //Reset controls. Do not want multiple click events on the same button, and do not want label text remaining
+            GameInfo1.text = "";
+            GameInfo2.text = "";
+            GameInfo3.text = "";
+            GameInfo4.text = "";
+            GameInfo1.text = label;
+            JoinAGame1.onClick.RemoveAllListeners();
+            Delete1.onClick.RemoveAllListeners();
+            JoinAGame2.onClick.RemoveAllListeners();
+            Delete2.onClick.RemoveAllListeners();
+            JoinAGame3.onClick.RemoveAllListeners();
+            Delete3.onClick.RemoveAllListeners();
+            JoinAGame4.onClick.RemoveAllListeners();
+            Delete4.onClick.RemoveAllListeners();
+
         for (int i = startItem; i < endCount; i++) //Add these controls for each row
         {
-            string label = entities[i].GameNumber.ToString() + " " +
+            label = entities[i].GameNumber.ToString() + " " +
                 entities[i].UserNamesAndColor +
                 " " + (entities[i].IsGameStarted == "true" ? "Started" : "Unstarted");
 
@@ -330,33 +373,47 @@ public class JoinGame : MonoBehaviour
                                                 //Most likely, something to do with threading affects accessing the entities varaible.
             if (count == 0)
             {
+                GameInfo1.text = "";
                 GameInfo1.text = label;
+
                 JoinAGame1.onClick.AddListener(async () => await BtnJoinGame(GameID)); 
                 Delete1.onClick.AddListener(async () => await BtnDeleteGame(GameID));
             }
             else if (count == 1)
             {
+                GameInfo2.text = "";
                 GameInfo2.text = label;
+                JoinAGame2.onClick.RemoveAllListeners();
+                Delete2.onClick.RemoveAllListeners();
+
                 JoinAGame2.onClick.AddListener(async () => await BtnJoinGame(GameID));
                 Delete2.onClick.AddListener(async () => await BtnDeleteGame(GameID));
             }
             else if (count == 2)
             {
+                GameInfo3.text = "";
                 GameInfo3.text = label;
+                JoinAGame3.onClick.RemoveAllListeners();
+                Delete3.onClick.RemoveAllListeners();
+
                 JoinAGame3.onClick.AddListener(async() => await BtnJoinGame(GameID));
                 Delete3.onClick.AddListener(async() => await BtnDeleteGame(GameID));
             }
             else if (count == 3)
             {
+                GameInfo4.text = "";
                 GameInfo4.text = label;
+                JoinAGame4.onClick.RemoveAllListeners();
+                Delete4.onClick.RemoveAllListeners();
+
                 JoinAGame4.onClick.AddListener(async() => await BtnJoinGame(GameID));
                 Delete4.onClick.AddListener(async() => await BtnDeleteGame(GameID));
                 return;
             }
             count++;
+            label = "";
         }
-        NewGame.onClick.AddListener(async() => await BtnCreateGame());
-        LoadGames.onClick.AddListener(async () => await btnGo());
+        entities = new List<GameData>();
 
     }
 }
