@@ -68,6 +68,7 @@ public class SetUpGameBoard : MonoBehaviour
     public Button AddComputerPlayer;
     public Button btnShowChat;
 
+    public Button ClearChat;
     public Button HideChat;
     public Button SendChat;
     public TMP_Text DisplayMessage;
@@ -80,6 +81,7 @@ public class SetUpGameBoard : MonoBehaviour
         AddComputerPlayer.onClick.AddListener(() => AddComp());
         btnShowChat.onClick.AddListener(() => ShowChat());
 
+        ClearChat.onClick.AddListener(() => btnClearChat());
         HideChat.onClick.AddListener(() => ShowChat());
         SendChat.onClick.AddListener(async () => await BtnChat());
 
@@ -733,6 +735,10 @@ public class SetUpGameBoard : MonoBehaviour
         {
             EditorUtility.DisplayDialog("Error", "Must be Logged in & at a game to Chat!", "Ok");
         }
+    }
+    public void btnClearChat()
+    {
+        DisplayMessage.text = "";
     }
     private async Task UpdateOtherGameBoards() //When I change my GameBoard
     {
