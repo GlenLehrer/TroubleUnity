@@ -706,7 +706,7 @@ public class SetUpGameBoard : MonoBehaviour
             _connection.On<string, string>("ReceiveMessage", (s1, s2) => UpdateMessages(s1, s2));
             _connection.On("UpdateGameBoard", async () => await UpdateGameBoard());
             _connection.On("GroupJoined", async () => await GroupJoined());
-
+            await _connection.InvokeAsync("GroupJoined", groupName);
         //_connection.InvokeAsync("UpdateGameBoard", groupName);
         //_connection.InvokeAsync("SendMessage", groupName, Classes.APILinks.PlayerUserName, "Message Text");
     }
