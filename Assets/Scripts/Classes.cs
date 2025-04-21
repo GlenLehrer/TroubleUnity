@@ -16,9 +16,9 @@ public class Classes : MonoBehaviour
 {
     public static class APILinks
     {
-        public static string hubAddress = "https://bigprojectapi-300083331.azurewebsites.net/uihub/"; 
+        public static string hubAddress = "https://localhost:7009/uihub/";
 
-        public static string APIAddress = "https://bigprojectapi-300083331.azurewebsites.net/api/";
+        public static string APIAddress = "https://localhost:7009/api/";
         public static Guid GameID { get; set; } = Guid.Empty;
         public static Guid PlayerID { get; set; } = Guid.Empty;
         public static string PlayerUserName { get; set; } = "";
